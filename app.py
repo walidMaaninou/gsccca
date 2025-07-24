@@ -5,10 +5,7 @@ from download import use_session_in_headless_chrome_batch
 import json
 import os
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
 import requests
-
-load_dotenv()
 
 st.set_page_config(page_title="GSCCCA Document Downloader", layout="centered")
 
