@@ -1,5 +1,5 @@
 import requests
-from seleniumwire import webdriver
+from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -51,7 +51,7 @@ def get_base64_images_as_pdf_bytes(driver) -> BytesIO:
 
 
 def use_session_in_headless_chrome_batch(session: requests.Session, results_docs, results, table_placeholder):
-    from seleniumwire import webdriver
+    from selenium import webdriver
     from selenium.webdriver.chrome.options import Options
     from selenium.webdriver.common.by import By
     from selenium.webdriver.support.ui import WebDriverWait
