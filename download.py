@@ -147,8 +147,12 @@ def use_session_in_headless_chrome_batch(session: requests.Session, results_docs
         print(f"[ADDRESS] Extracted for {doc_id}: {addresses[0]}")
         results.append({
                 # "Document ID": doc_id,
-                "Grantee": url["grantee"],
-                "Address": addresses[0]
+                "First name": url["grantee"].split(",")[0],
+                "Last name": ",".join(url["grantee"].split(",")[1:]),
+                "Property Address": addresses[0],
+                "Property City": addresses[1],
+                "Property State": addresses[2],
+                "Property Zip": addresses[3]
             })
 
             # Convert to DataFrame and update table

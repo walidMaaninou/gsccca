@@ -61,7 +61,6 @@ def extract_combined_image_urls_with_subdivision_and_grantee(html: str):
 
     for dashtable in dash_tables:
         has_subdivision = False
-        grantees = []
 
         for tr in dashtable.find_all("tr"):
             tds = tr.find_all("td")
@@ -80,8 +79,9 @@ def extract_combined_image_urls_with_subdivision_and_grantee(html: str):
                 # Detect grantee span
                 if span := td.find("span", id=re.compile("BodyContent_lvDashboard_lvExpandedGrantee_.*_lblGranteeName_")):
                     name = span.get_text(strip=True)
-                    if name and name not in grantees:
-                        grantees.append(name)
+                    if name:
+                        grantee = name
+                        break
 
         if has_subdivision:
             link = dashtable.find("a", onclick=True)
@@ -90,7 +90,7 @@ def extract_combined_image_urls_with_subdivision_and_grantee(html: str):
                 if match:
                     results.append({
                         "doc_id": match.group(1),
-                        "grantee": "; ".join(grantees) if grantees else None
+                        "grantee": grantee
                     })
 
     return results, len(dash_tables)

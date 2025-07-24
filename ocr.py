@@ -50,7 +50,7 @@ def extract_addresses_from_pdf(pdf_input: Union[str, Path, BytesIO], openai_api_
 
     prompt = f"""
 From the text below, extract the **single most likely physical mailing address** (property address).
-Output only a **Python list containing one string**, with no explanation:
+Output only a **Python list containing four elements: property address, city, state and zip**,  with no explanation:
 
 \"\"\"{full_text[:3000]}\"\"\"
 """
