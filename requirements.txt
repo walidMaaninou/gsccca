@@ -5,3 +5,4 @@ selenium
 pytesseract
 pdf2image
 openai
+seleniumwire
