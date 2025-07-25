@@ -83,7 +83,8 @@ def extract_combined_image_urls_with_subdivision_and_grantee(html: str):
                         grantee = name
                         break
 
-        if has_subdivision:
+        # if has_subdivision:
+        if True:
             link = dashtable.find("a", onclick=True)
             if link:
                 match = re.search(r"ViewCombinedImages\('([^']+)'", link["onclick"])
@@ -121,7 +122,7 @@ def loop_document_scrape(session, instrument_type, county_id, start_date, end_da
         filed_dates = extract_filed_dates(html)
         results, total_docs = extract_combined_image_urls_with_subdivision_and_grantee(html)
 
-        print(f"  Found {total_docs} documents, {len(results)} with subdivision.")
+        print(f"  Found {total_docs} documents.")
 
         all_doc_urls.extend(results)
 
