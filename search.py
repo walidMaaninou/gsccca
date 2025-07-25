@@ -50,7 +50,7 @@ def search_documents(session: requests.Session, instrument_type: int, county_id:
     return search_response.text
 
 
-def extract_combined_image_urls_with_subdivision_and_grantee(html: str):
+def extract_combined_image_urls_with_subdivision_and_grantee(html: str, selected_instrument:str):
     soup = BeautifulSoup(html, "html.parser")
     results = []
     dash_tables = soup.find_all("table", class_="DashboardTable")
@@ -91,7 +91,8 @@ def extract_combined_image_urls_with_subdivision_and_grantee(html: str):
                 if match:
                     results.append({
                         "doc_id": match.group(1),
-                        "grantee": grantee
+                        "grantee": grantee,
+                        "Doc Type": selected_instrument
                     })
 
     return results, len(dash_tables)
@@ -108,7 +109,7 @@ def extract_filed_dates(html: str) -> list[str]:
     return filed_dates
 
 
-def loop_document_scrape(session, instrument_type, county_id, start_date, end_date):
+def loop_document_scrape(session, instrument_type, selected_instrument, county_id, start_date, end_date):
     all_doc_urls = []
     current_from = datetime.strptime(start_date, "%m/%d/%Y")
     final_to = datetime.strptime(end_date, "%m/%d/%Y")
@@ -120,7 +121,7 @@ def loop_document_scrape(session, instrument_type, county_id, start_date, end_da
 
         html = search_documents(session, instrument_type, county_id, str_from, str_to)
         filed_dates = extract_filed_dates(html)
-        results, total_docs = extract_combined_image_urls_with_subdivision_and_grantee(html)
+        results, total_docs = extract_combined_image_urls_with_subdivision_and_grantee(html, selected_instrument)
 
         print(f"  Found {total_docs} documents.")
 

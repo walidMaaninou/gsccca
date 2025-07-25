@@ -66,6 +66,7 @@ if st.session_state.logged_in:
         results_docs = loop_document_scrape(
             st.session_state.session,
             instrument_type=int(instrument_id),
+            selected_instrument=selected_instrument,
             county_id=int(county_id),
             start_date=start_date.strftime("%m/%d/%Y"),
             end_date=end_date.strftime("%m/%d/%Y")

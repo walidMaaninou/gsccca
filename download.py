@@ -147,6 +147,7 @@ def use_session_in_headless_chrome_batch(session: requests.Session, results_docs
         print(f"[ADDRESS] Extracted for {doc_id}: {addresses[0]}")
         results.append({
                 # "Document ID": doc_id,
+                "Doc Type": url["Doc Type"],
                 "First name": url["grantee"].split(",")[0],
                 "Last name": ",".join(url["grantee"].split(",")[1:]),
                 "Property Address": addresses[0],
